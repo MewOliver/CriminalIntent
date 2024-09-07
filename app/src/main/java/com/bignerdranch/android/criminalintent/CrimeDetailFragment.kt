@@ -26,6 +26,7 @@ import android.text.format.DateFormat
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.view.doOnLayout
+import getScaledBitmap
 import java.io.File
 import java.util.Date
 import java.util.UUID
@@ -94,16 +95,16 @@ class CrimeDetailFragment : Fragment() {
                 selectSuspect.launch(null)
             }
 
-            val selectSuspectIntent = selectSuspect.contract.createIntent(
-                requireContext(),
-                null
-            )
-            crimeSuspect.isEnabled = canResolveIntent(selectSuspectIntent)
+            // Remove the following lines - ChatGPT suggestion
+            // val selectSuspectIntent = selectSuspect.contract.createIntent(
+            //     requireContext(),
+            //     null
+            // )
+            // crimeSuspect.isEnabled = canResolveIntent(selectSuspectIntent)
 
             crimeCamera.setOnClickListener {
                 photoName = "IMG_${Date()}.JPG"
-                val photoFile = File(requireContext().applicationContext.filesDir,
-                                    photoName)
+                val photoFile = File(requireContext().applicationContext.filesDir, photoName)
                 val photoUri = FileProvider.getUriForFile(
                     requireContext(),
                     "com.bignerdranch.android.criminalintent.fileprovider",
@@ -113,11 +114,12 @@ class CrimeDetailFragment : Fragment() {
                 takePhoto.launch(photoUri)
             }
 
-            val captureImageIntent = takePhoto.contract.createIntent(
-                requireContext(),
-                null
-            )
-            crimeCamera.isEnabled = canResolveIntent(captureImageIntent)
+            // Remove the following lines - ChatGPT suggestion
+            // val captureImageIntent = takePhoto.contract.createIntent(
+            //     requireContext(),
+            //     null
+            // )
+            // crimeCamera.isEnabled = canResolveIntent(captureImageIntent)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -135,8 +137,8 @@ class CrimeDetailFragment : Fragment() {
                 bundle.getSerializable(DatePickerFragment.BUNDLE_KEY_DATE) as Date
             crimeDetailViewModel.updateCrime { it.copy(date = newDate) }
         }
-
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
